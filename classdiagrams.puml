@@ -1,0 +1,51 @@
+@startuml
+package com.axion.test {
+    package enums {
+        enum ErrorCodes {
+                HANDSET_SERVICE_DOWN
+        }
+    }
+
+    package controller {
+        class SearchHandsetController {
+              + searchMobiles(sim: String, announceDate:String ,priceEur:String ,price:String ) : Flux<SearchResponseDto>
+        }
+    }
+    package mapper {
+                 class SearchResponseDto {}
+    }
+    package service {
+       interface SearchService {
+              +  searchHandsetByKeywords(String ... keywords) : Flux<HandsetClientResponseDto>
+       }
+       package imp {
+          class SearchServiceImpl implements SearchService{
+
+          }
+       }
+    }
+    package exception {
+         class HandsetServiceUnavailableException extends RunTimeException {}
+    }
+
+    package client {
+       class HandsetServiceClient{
+             + list(String baseUrl, String endpoint) : Flux<HandsetClientResponseDto>
+       }
+
+    }
+    package config{
+       class AppBeanConfig{
+         +    modelMapper(): ModelMapper
+       }
+       class ReactiveMongoConfiguration{
+       }
+    }
+
+    SearchHandsetController -- SearchResponseDtoMapper
+    SearchHandsetController -- SearchService
+    HandsetServiceClient -- HandsetServiceUnavailableException
+    HandsetServiceUnavailableException : ErrorCodes
+
+}
+@enduml

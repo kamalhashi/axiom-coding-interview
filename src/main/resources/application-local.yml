@@ -1,0 +1,11 @@
+
+# swagger-ui custom path
+springdoc:
+  swagger-ui.path: /swagger-ui.html
+
+handset:
+  service:
+    baseUrl: "https://a511e938-a640-4868-939e-6eef06127ca1.mock.pstmn.io/"
+    endpoints:
+      search:
+        list: "handsets/list"
